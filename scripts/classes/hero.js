@@ -6,7 +6,6 @@ export default class Hero extends Person {
         super(app, config, x, y);
 
         this.app.ticker.add(this.events.bind(this));
-        console.log(this.app.stage.width);
     }
 
     stand() {
@@ -34,8 +33,7 @@ export default class Hero extends Person {
         if (this.event == 'right') {
             this.animate('walk');
             this.x += this.speed;
-            if (this.x > this.moveTo) {
-                this.x = this.moveTo;
+            if (this.x >= this.moveTo) {
                 this.event = '';
                 this.stand();
             }
@@ -43,8 +41,7 @@ export default class Hero extends Person {
         if (this.event == 'left') {
             this.animate('walk');
             this.x -= this.speed;
-            if (this.x < this.moveTo) {
-                this.x = this.moveTo;
+            if (this.x <= this.moveTo) {
                 this.event = '';
                 this.stand();
             }
