@@ -14,14 +14,13 @@ function initGround() {
 }
 
 window.onload = () => {
-    PIXI.utils.sayHello('canvas');
-
     const gpElem = document.getElementById('game-place');
     const app = new PIXI.Application({
         width: 1280,
         height: 658,
         backgroundColor: 0xFFFF44,
         autoStart: false,
+        forceCanvas: true
     });
 
     gpElem.appendChild(app.view);
