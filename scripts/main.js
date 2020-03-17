@@ -1,11 +1,11 @@
-import Hero from './person.js';
-import {config} from  '../source/hero.js';
+import Hero from './classes/hero.js';
+import {config as heroConfig} from '../source/hero.js';
 
 
 function initGround() {
     let rectangle = new PIXI.Graphics();
     rectangle.lineStyle(1);
-    for (let j=0; j<7;j++) {
+    for (let j = 0; j < 7; j++) {
         for (let i = 0; i < 16; i++) {
             rectangle.drawRect(i * 80, j * 94, 80, 94);
         }
@@ -16,23 +16,28 @@ function initGround() {
 window.onload = () => {
     PIXI.utils.sayHello('canvas');
 
+    const gpElem = document.getElementById('game-place');
     const app = new PIXI.Application({
         width: 1280,
         height: 658,
-        backgroundColor: 0xFFFF44
+        backgroundColor: 0xFFFF44,
+        autoStart: false,
     });
-    let gpElem = document.getElementById('game-place');
+
     gpElem.appendChild(app.view);
 
     app.stage.addChild(initGround());
 
-    let hero = new Hero(app, config,0, 0);
+    let hero = new Hero(app, heroConfig, 0, 0);
+
+    app.start();
 
     //
     $(function () {
         function parserCommands(cmd) {
             let commands = cmd.split('\n');
             eval(commands[0]);
+            // commands.forEach(command => console.log(command));
         }
 
         $('#run_game').click(function () {

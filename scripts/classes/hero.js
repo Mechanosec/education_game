@@ -1,24 +1,10 @@
-export default class Person extends PIXI.AnimatedSprite {
+import Person from './person.js';
+
+export default class Hero extends Person {
+
     constructor(app, config, x, y) {
-        super(config.sheets.stand);
+        super(app, config, x, y);
 
-        this.app = app;
-        this.sheets = config.sheets;
-        this.width = config.width;
-        this.height = config.height;
-        this.speed = config.speed;
-
-        this.anchor.set(0.5);
-        this.x = (x+1)*this.width/2;
-        this.y = (y+1)*this.height/2;
-
-        this.animationSpeed = 0.15;
-        this.event = '';
-        this.moveTo = 0;
-
-        this.app.stage.addChild(this);
-        this.playAnimation = false;
-        this.play();
         this.app.ticker.add(this.events.bind(this));
     }
 
@@ -42,19 +28,14 @@ export default class Person extends PIXI.AnimatedSprite {
         this.event = 'left';
     }
 
-    animate(spriteName) {
-        if (!this.playAnimation) {
-            this.playAnimation = true;
-            this.textures = this.sheets[spriteName];
-            this.play();
-        }
-    }
 
     events() {
         if (this.event == 'right') {
             this.animate('walk');
             this.x += this.speed;
+            console.log(this.app.stage.width);
             if (this.x > this.moveTo) {
+
                 this.event = '';
                 this.stand();
             }
