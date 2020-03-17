@@ -4,7 +4,7 @@ let textures = new PIXI.BaseTexture.from(source);
 let config = {
     'width': 80,
     'height': 94,
-    'speed': 5,
+    'speed': 7,
     'sheets': {
         'stand': [],
         'walk': [],

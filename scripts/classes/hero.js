@@ -34,6 +34,7 @@ export default class Hero extends Person {
             this.animate('walk');
             this.x += this.speed;
             if (this.x >= this.moveTo) {
+                this.x = this.moveTo;
                 this.event = '';
                 this.stand();
             }
@@ -42,6 +43,7 @@ export default class Hero extends Person {
             this.animate('walk');
             this.x -= this.speed;
             if (this.x <= this.moveTo) {
+                this.x = this.moveTo;
                 this.event = '';
                 this.stand();
             }
