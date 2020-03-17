@@ -42,13 +42,17 @@ export default class Person extends PIXI.AnimatedSprite {
         this.event = 'left';
     }
 
+    animate(spriteName) {
+        if (!this.playAnimation) {
+            this.playAnimation = true;
+            this.textures = this.sheets[spriteName];
+            this.play();
+        }
+    }
+
     events() {
         if (this.event == 'right') {
-            if (!this.playAnimation) {
-                this.playAnimation = true;
-                this.textures = this.sheets.walk;
-                this.play();
-            }
+            this.animate('walk');
             this.x += this.speed;
             if (this.x > this.moveTo) {
                 this.event = '';
@@ -56,11 +60,7 @@ export default class Person extends PIXI.AnimatedSprite {
             }
         }
         if (this.event == 'left') {
-            if (!this.playAnimation) {
-                this.playAnimation = true;
-                this.textures = this.sheets.walk;
-                this.play();
-            }
+            this.animate('walk');
             this.x -= this.speed;
             if (this.x < this.moveTo) {
                 this.event = '';
