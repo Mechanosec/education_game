@@ -57,7 +57,7 @@ export default class Hero extends Person {
      */
     right() {
         let currentX = this.calcMoveToX();
-        if (currentX < this.app.stage.width - (this.width / 2) - 1) { //проверка на край приложения (-1) служит для точности, так как приложение создает запас по ширине (+1)
+        if (currentX < this.app.view.width - (this.width / 2)) { //проверка на край приложения
             this.scale.x = 1;
             this.moveToX.push(currentX + (this.step * this.width));
             this.events.push('right');
@@ -69,7 +69,7 @@ export default class Hero extends Person {
      */
     left() {
         let currentX = this.calcMoveToX();
-        if (currentX > (this.width / 2) + 1) { //проверка на край приложения (+1) служит для точности, так как приложение создает запас по ширине (+1)
+        if (currentX > (this.width / 2)) { //проверка на край приложения
             this.scale.x = -1;
             this.moveToX.push(currentX - (this.step * this.width));
             this.events.push('left');
@@ -81,7 +81,7 @@ export default class Hero extends Person {
      */
     down() {
         let currentY = this.calcMoveToY();
-        if (currentY < this.app.stage.height - (this.height / 2) - 1) { //проверка на край приложения (-1) служит для точности, так как приложение создает запас по высоте (+1)
+        if (currentY < this.app.view.height - (this.height / 2)) { //проверка на край приложения
             this.scale.x = 1;
             this.moveToY.push(currentY + (this.step * this.height));
             this.events.push('down');
@@ -94,7 +94,7 @@ export default class Hero extends Person {
      */
     up() {
         let currentY = this.calcMoveToY();
-        if (currentY > (this.height / 2) + 1) { //проверка на край приложения (+1) служит для точности, так как приложение создает запас по высоте (+1)
+        if (currentY > (this.height / 2)) { //проверка на край приложения
             this.scale.x = 1;
             this.moveToY.push(currentY - (this.step * this.height));
             this.events.push('up');
