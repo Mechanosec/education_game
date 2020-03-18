@@ -104,7 +104,8 @@ export default class Hero extends Person {
 
     death() {
         // if(this.x == this.app.stage.getChildByName('Enemy').x) {
-        if(this.x == 201) {
+        console.log(this.x, this.y);
+        if(this.x == 120 && this.y==141) {
             this.textures = this.sheets.death;
             this.playAnimation = false;
             this.loop = false;
