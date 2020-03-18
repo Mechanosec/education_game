@@ -9,12 +9,14 @@ export default class Person extends PIXI.AnimatedSprite {
         this.speed = config.speed;
 
         this.anchor.set(0.5);
-        this.x = (x + 1) * this.width / 2;
-        this.y = (y + 1) * this.height / 2;
+        this.x = (x + 1) + this.width / 2;
+        this.y = (y + 1) + this.height / 2;
 
         this.animationSpeed = 0.15;
-        this.event = '';
-        this.moveTo = 0;
+        this.step = 1;
+        this.events = [];
+        this.moveToX = [];
+        this.moveToY = [];
 
         this.app.stage.addChild(this);
         this.playAnimation = false;

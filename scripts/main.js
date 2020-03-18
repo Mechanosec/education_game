@@ -34,9 +34,10 @@ window.onload = () => {
     //
     $(function () {
         function parserCommands(cmd) {
-            let commands = cmd.split('\n');
-            eval(commands[0]);
-            // commands.forEach(command => console.log(command));
+            eval(cmd);
+            // let commands = cmd.split('\n');
+            // eval(commands[0]);
+            // eval(commands[1]);
         }
 
         $('#run_game').click(function () {
