@@ -12,7 +12,13 @@ function initGround() {
     rectangle.lineStyle(1);
     for (let j = 0; j < 7; j++) {
         for (let i = 0; i < 16; i++) {
-            rectangle.drawRect(i * 80, j * 94, 80, 94);
+            if(j==1 && i==1){
+                rectangle.beginFill(0xFF3300);
+                rectangle.drawRect(i * 80, j * 94, 80, 94);
+                rectangle.endFill();
+            } else {
+                rectangle.drawRect(i * 80, j * 94, 80, 94);
+            }
         }
     }
     return rectangle;
