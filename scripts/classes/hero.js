@@ -35,28 +35,34 @@ export default class Hero extends Person {
 
     right() {
         let currentX = this.calcMoveToX();
-        this.moveToX.push(currentX + (this.step * this.width));
-        this.scale.x = 1;
-        this.events.push('right');
+        if(currentX < (this.app.stage.width - (this.width/2))) {
+            this.scale.x = 1;
+            this.moveToX.push(currentX + (this.step * this.width));
+            this.events.push('right');
+        }
     }
 
     left() {
         let currentX = this.calcMoveToX();
-        this.moveToX.push(currentX - (this.step * this.width));
-        this.scale.x = -1;
-        this.events.push('left');
+        if(currentX > 0) {
+            this.scale.x = -1;
+            this.moveToX.push(currentX - (this.step * this.width));
+            this.events.push('left');
+        }
     }
 
     down() {
         let currentY = this.calcMoveToY();
-        this.moveToY.push(currentY + (this.step * this.height));
-        this.scale.x = 1;
-        this.events.push('down');
+        if(currentY < this.app.stage.height) {
+            this.scale.x = 1;
+            this.moveToY.push(currentY + (this.step * this.height));
+            this.events.push('down');
+        }
+
     }
 
 
     myLoop() {
-        // console.log(this.events);
         if (this.events.length > 0 && this.events[0] == 'right') {
             this.animate('walk');
             this.x += this.speed;
@@ -64,7 +70,6 @@ export default class Hero extends Person {
                 this.x = this.moveToX[0];
                 this.events.shift();
                 this.moveToX.shift();
-                // this.stand();
             }
         } else if (this.events.length > 0 && this.events[0] == 'left') {
             this.animate('walk');
@@ -73,21 +78,16 @@ export default class Hero extends Person {
                 this.x = this.moveToX[0];
                 this.events.shift();
                 this.moveToX.shift();
-                // this.stand();
             }
         } else if(this.events.length > 0 && this.events[0] == 'down') {
-            console.log(123);
             this.animate('walk');
             this.y += this.speed;
             if (this.y >= this.moveToY[0]) {
                 this.y = this.moveToY[0];
                 this.events.shift();
                 this.moveToY.shift();
-                // this.stand();
             }
-        }
-
-        if (this.events.length == 0) {
+        } else if (this.events.length == 0 && this.playAnimation==true) {
             this.stand();
         }
     }
