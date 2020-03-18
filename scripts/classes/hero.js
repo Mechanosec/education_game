@@ -2,18 +2,23 @@ import Person from './person.js';
 
 export default class Hero extends Person {
 
+    /**
+     *
+     * @param app
+     * @param config
+     * @param x
+     * @param y
+     */
     constructor(app, config, x, y) {
         super(app, config, x, y);
 
         this.app.ticker.add(this.myLoop.bind(this));
     }
 
-    stand() {
-        this.textures = this.sheets.stand;
-        this.playAnimation = false;
-        this.play();
-    }
-
+    /**
+     * расчет текущего положения персонажа по оси X
+     * @returns int
+     */
     calcMoveToX() {
         let currentX = 0;
         if (this.moveToX.length > 0) {
@@ -24,6 +29,10 @@ export default class Hero extends Person {
         return currentX;
     }
 
+    /**
+     * расчет текущего положения персонажа по оси Y
+     * @returns int
+     */
     calcMoveToY() {
         let currentY = 0;
         if (this.moveToY.length > 0) {
@@ -34,27 +43,45 @@ export default class Hero extends Person {
         return currentY;
     }
 
+    /**
+     * состояние покоя
+     */
+    stand() {
+        this.textures = this.sheets.stand;
+        this.playAnimation = false;
+        this.play();
+    }
+
+    /**
+     * состояние движения вправо
+     */
     right() {
         let currentX = this.calcMoveToX();
-        if (currentX < this.app.stage.width - (this.width / 2) - 1) {
+        if (currentX < this.app.stage.width - (this.width / 2) - 1) { //проверка на край приложения (-1) служит для точности, так как приложение создает запас по ширине (+1)
             this.scale.x = 1;
             this.moveToX.push(currentX + (this.step * this.width));
             this.events.push('right');
         }
     }
 
+    /**
+     * состояние движения влево
+     */
     left() {
         let currentX = this.calcMoveToX();
-        if (currentX > (this.width / 2) + 1) {
+        if (currentX > (this.width / 2) + 1) { //проверка на край приложения (+1) служит для точности, так как приложение создает запас по ширине (+1)
             this.scale.x = -1;
             this.moveToX.push(currentX - (this.step * this.width));
             this.events.push('left');
         }
     }
 
+    /**
+     * состояние движения вниз
+     */
     down() {
         let currentY = this.calcMoveToY();
-        if (currentY < this.app.stage.height - (this.height / 2) - 1) {
+        if (currentY < this.app.stage.height - (this.height / 2) - 1) { //проверка на край приложения (-1) служит для точности, так как приложение создает запас по высоте (+1)
             this.scale.x = 1;
             this.moveToY.push(currentY + (this.step * this.height));
             this.events.push('down');
@@ -62,9 +89,12 @@ export default class Hero extends Person {
 
     }
 
+    /**
+     * состояние движения вверх
+     */
     up() {
         let currentY = this.calcMoveToY();
-        if (currentY > (this.height / 2) + 1) {
+        if (currentY > (this.height / 2) + 1) { //проверка на край приложения (+1) служит для точности, так как приложение создает запас по высоте (+1)
             this.scale.x = 1;
             this.moveToY.push(currentY - (this.step * this.height));
             this.events.push('up');
@@ -72,7 +102,11 @@ export default class Hero extends Person {
 
     }
 
-
+    /**
+     * цикл евентов
+     * в нем берется самый первый евент и и самая первая координата для перемещения X или Y,
+     * как только евент завершен он удаляется вместе с координатой, и так пока не закончатся евенты
+     */
     myLoop() {
         if (this.events.length > 0 && this.events[0] == 'right') {
             this.animate('walk');
@@ -106,7 +140,7 @@ export default class Hero extends Person {
                 this.events.shift();
                 this.moveToY.shift();
             }
-        } else if (this.events.length == 0 && this.playAnimation == true) {
+        } else if (this.events.length == 0 && this.playAnimation == true) { //проверка на окончания всех евентов
             this.stand();
         }
     }

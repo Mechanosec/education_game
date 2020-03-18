@@ -1,7 +1,10 @@
 import Hero from './classes/hero.js';
 import {config as heroConfig} from '../source/hero.js';
 
-
+/**
+ * инициализация заднего фона приложения(искуственная визуализация чанков)
+ * @returns {Graphics}
+ */
 function initGround() {
     let rectangle = new PIXI.Graphics();
     rectangle.lineStyle(1);
@@ -15,21 +18,21 @@ function initGround() {
 
 window.onload = () => {
     const gpElem = document.getElementById('game-place');
-    const app = new PIXI.Application({
+    const app = new PIXI.Application({ //инициализация приложения
         width: 1280,
         height: 658,
         backgroundColor: 0xFFFF44,
-        autoStart: false,
-        forceCanvas: true
+        autoStart: false, //отключения автостарта приложения(нужно для того чтобы персонажи и прочее успели инициализироваться)
+        forceCanvas: true //насильное включение канваса
     });
 
-    gpElem.appendChild(app.view);
+    gpElem.appendChild(app.view); //добавление приложения в елемент страницы
 
-    app.stage.addChild(initGround());
+    app.stage.addChild(initGround()); //добавление заднего фона в сцену
 
     let hero = new Hero(app, heroConfig, 0, 0);
 
-    app.start();
+    app.start(); //запуск приложения
 
     //
     $(function () {
