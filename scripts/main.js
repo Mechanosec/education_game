@@ -1,5 +1,7 @@
 import Hero from './classes/hero.js';
+import Enemy from './classes/enemy.js';
 import {config as heroConfig} from '../source/hero.js';
+import {config as enemyConfig} from '../source/enemy.js';
 
 /**
  * инициализация заднего фона приложения(искуственная визуализация чанков)
@@ -31,6 +33,7 @@ window.onload = () => {
     app.stage.addChild(initGround()); //добавление заднего фона в сцену
 
     let hero = new Hero(app, heroConfig, 0, 0);
+    let enemy = new Enemy(app, enemyConfig, 3*80, 0);
 
     app.start(); //запуск приложения
 
@@ -38,12 +41,10 @@ window.onload = () => {
     $(function () {
         function parserCommands(cmd) {
             eval(cmd);
-            // let commands = cmd.split('\n');
-            // eval(commands[0]);
-            // eval(commands[1]);
         }
 
         $('#run_game').click(function () {
+
             let commandsTextarea = $('#game_commands').val();
             parserCommands(commandsTextarea);
         });

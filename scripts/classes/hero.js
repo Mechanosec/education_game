@@ -102,6 +102,16 @@ export default class Hero extends Person {
 
     }
 
+    death() {
+        // if(this.x == this.app.stage.getChildByName('Enemy').x) {
+        if(this.x == 201) {
+            this.textures = this.sheets.death;
+            this.playAnimation = false;
+            this.loop = false;
+            this.play();
+        }
+    }
+
     /**
      * цикл евентов
      * в нем берется самый первый евент и и самая первая координата для перемещения X или Y,
@@ -115,6 +125,7 @@ export default class Hero extends Person {
                 this.x = this.moveToX[0];
                 this.events.shift();
                 this.moveToX.shift();
+                this.death();
             }
         } else if (this.events.length > 0 && this.events[0] == 'left') {
             this.animate('walk');
@@ -123,6 +134,7 @@ export default class Hero extends Person {
                 this.x = this.moveToX[0];
                 this.events.shift();
                 this.moveToX.shift();
+                this.death();
             }
         } else if (this.events.length > 0 && this.events[0] == 'down') {
             this.animate('walk');
@@ -131,6 +143,7 @@ export default class Hero extends Person {
                 this.y = this.moveToY[0];
                 this.events.shift();
                 this.moveToY.shift();
+                this.death();
             }
         } else if (this.events.length > 0 && this.events[0] == 'up') {
             this.animate('walk');
@@ -139,6 +152,7 @@ export default class Hero extends Person {
                 this.y = this.moveToY[0];
                 this.events.shift();
                 this.moveToY.shift();
+                this.death();
             }
         } else if (this.events.length == 0 && this.playAnimation == true) { //проверка на окончания всех евентов
             this.stand();

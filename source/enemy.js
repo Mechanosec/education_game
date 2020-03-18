@@ -2,7 +2,7 @@ let source = '../sprites/hero.png';
 
 let textures = new PIXI.BaseTexture.from(source);
 let config = {
-    'name': 'Hero',
+    'name': 'Enemy',
     'width': 80,
     'height': 94,
     'speed': 7,

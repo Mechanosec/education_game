@@ -10,6 +10,7 @@ export default class Person extends PIXI.AnimatedSprite {
         super(config.sheets.stand); //установка первичной анимации персонажа
 
         this.app = app;
+        this.name = config.name; //имя персонажа
         this.sheets = config.sheets; //набор спрайтов персонажа
         this.width = config.width; //ширина модели персонажа
         this.height = config.height; //высота модели персонажа
@@ -19,7 +20,7 @@ export default class Person extends PIXI.AnimatedSprite {
         this.x = (x + 1) + this.width / 2; //установка координаты X, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
         this.y = (y + 1) + this.height / 2; //установка координаты Y, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
 
-        this.animationSpeed = 0.15; //скорость анимации
+        this.animationSpeed = 0.12; //скорость анимации
         this.step = 1; //количество чанков которые может пройти персонаж за 1 евент
         this.events = []; //массив евентов
         this.moveToX = []; //массив координат X, к которым должен прийти персонаж
