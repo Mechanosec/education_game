@@ -4,13 +4,13 @@ export default class Hero extends Person {
 
     /**
      *
-     * @param app
+     * @param stage
      * @param config
      * @param x
      * @param y
      */
-    constructor(app, config, x, y) {
-        super(app, config, x, y);
+    constructor(stage, config, x, y) {
+        super(stage, config, x, y);
     }
 
 }

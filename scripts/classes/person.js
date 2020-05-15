@@ -1,37 +1,23 @@
-export default class Person extends PIXI.AnimatedSprite {
+import Object from "./object.js";
+
+export default class Person extends Object {
     /**
      *
-     * @param app
+     * @param stage
      * @param config
      * @param x
      * @param y
      */
-    constructor(app, config, x, y) {
-        super(config.sheets.stand); //установка первичной анимации персонажа
+    constructor(stage, config, x, y) {
+        super(stage, config, x, y);
 
-        this.app = app;
-        this.name = config.name; //имя персонажа
-        this.sheets = config.sheets; //набор спрайтов персонажа
-        this.width = config.width; //ширина модели персонажа
-        this.height = config.height; //высота модели персонажа
-        this.speed = config.speed; //скорость перемещения персонажа
-
-        this.anchor.set(0.5); //привязка координат персонажа к его центру
-        this.x = x + this.width / 2; //установка координаты X, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
-        this.y = y + this.height / 2; //установка координаты Y, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
-
-        this.animationSpeed = 0.12; //скорость анимации
-        this.step = 1; //количество чанков которые может пройти персонаж за 1 евент
         this.events = []; //массив евентов
         this.moveToX = []; //массив координат X, к которым должен прийти персонаж
         this.moveToY = []; //массив координат Y, к которым должен прийти персонаж
 
-        this.app.stage.addChild(this); //добавление нашего персонажа в сцену
         this.playAnimation = false; //переменная отвечающая за то находится ли персонаж в движении
-        this.play(); //запуск анимации
-
-        
-        this.app.ticker.add(this.myLoop.bind(this));
+        this.stage.ticker.add(this.myLoop.bind(this));
+        this.stage.ticker.start();
     }
 
     /**
@@ -89,7 +75,7 @@ export default class Person extends PIXI.AnimatedSprite {
      */
     right() {
         let currentX = this.calcMoveToX();
-        if (currentX < this.app.view.width - (this.width / 2)) { //проверка на край приложения
+        if (currentX < this.stage.view.width - (this.width / 2)) { //проверка на край приложения
             this.scale.x = 1;
             this.moveToX.push(currentX + (this.step * this.width));
             this.events.push('right');
@@ -113,9 +99,9 @@ export default class Person extends PIXI.AnimatedSprite {
      */
     down() {
         let currentY = this.calcMoveToY();
-        if (currentY < this.app.view.height - (this.height / 2)) { //проверка на край приложения
+        if (currentY < this.stage.view.height - (this.height / 2)) { //проверка на край приложения
             this.scale.x = 1;
-            this.moveToY.push(currentY + (this.step * this.height));
+            this.moveToY.push(currentY + (this.step * this.height / 2));
             this.events.push('down');
         }
 
@@ -135,14 +121,18 @@ export default class Person extends PIXI.AnimatedSprite {
     }
 
     death() {
-        // if(this.x == this.app.stage.getChildByName('Enemy').x) {
-        console.log(this.x, this.y);
-        if(this.x == 120 && this.y==141) {
+        if (this.x == 120 && this.y == 94) {
             this.textures = this.sheets.death;
             this.playAnimation = false;
             this.loop = false;
             this.play();
         }
+    }
+
+    clearAll() {
+        this.events = [];
+        this.moveToX = [];
+        this.moveToY = [];
     }
 
 
@@ -152,6 +142,13 @@ export default class Person extends PIXI.AnimatedSprite {
      * как только евент завершен он удаляется вместе с координатой, и так пока не закончатся евенты
      */
     myLoop() {
+        // console.log(this.name, this.x);
+        // console.log('main', this.stage.mainPerson.x);
+        if(this.events.length > 0 && this.stage.collision.checkBump(this)) {
+            this.clearAll();
+            console.log(this.name);
+            this.stage.isDead = true;
+        }
         if (this.events.length > 0 && this.events[0] == 'right') {
             this.animate('walk');
             this.x += this.speed;

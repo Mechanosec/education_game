@@ -1,45 +1,24 @@
-import Hero from './classes/hero.js';
-import Enemy from './classes/enemy.js';
-import {config as heroConfig} from '../source/hero.js';
-import {config as enemyConfig} from '../source/enemy.js';
 
-/**
- * инициализация заднего фона приложения(искуственная визуализация чанков)
- * @returns {Graphics}
- */
-function initGround() {
-    let rectangle = new PIXI.Graphics();
-    rectangle.lineStyle(1);
-    for (let j = 0; j < 7; j++) {
-        for (let i = 0; i < 16; i++) {
-            if(j==1 && i==1){
-                rectangle.beginFill(0xFF3300);
-                rectangle.drawRect(i * 80, j * 94, 80, 94);
-                rectangle.endFill();
-            } else {
-                rectangle.drawRect(i * 80, j * 94, 80, 94);
-            }
-        }
-    }
-    return rectangle;
-}
+import App from "./scene/app.js";
+
+import Level1 from "./scene/levels/level1.js";
+import Level2 from "./scene/levels/level2.js";
+import Level3 from "./scene/levels/level3.js";
 
 window.onload = () => {
     const gpElem = document.getElementById('game-place');
-    const app = new PIXI.Application({ //инициализация приложения
+    const app = new App({ //инициализация приложения
         width: 1280,
         height: 658,
         backgroundColor: 0xFFFF44,
         autoStart: false, //отключения автостарта приложения(нужно для того чтобы персонажи и прочее успели инициализироваться)
         forceCanvas: true //насильное включение канваса
-    });
-
+    }, [
+        Level1,
+        Level2,
+        Level3,
+    ]);
     gpElem.appendChild(app.view); //добавление приложения в елемент страницы
-
-    app.stage.addChild(initGround()); //добавление заднего фона в сцену
-
-    let hero = new Hero(app, heroConfig, 0, 0);
-    let enemy = new Enemy(app, enemyConfig, 3*80, 0);
 
     app.start(); //запуск приложения
 

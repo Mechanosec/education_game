@@ -10,7 +10,9 @@ let config = {
         'stand': [],
         'walk': [],
         'death': [],
-    }
+    },
+    'isCollision': true,
+    'isMain': true
 };
 
 // инициализация спрайти в состоянии стоять
