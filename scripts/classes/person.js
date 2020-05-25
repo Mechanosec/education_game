@@ -142,12 +142,9 @@ export default class Person extends Object {
      * как только евент завершен он удаляется вместе с координатой, и так пока не закончатся евенты
      */
     myLoop() {
-        // console.log(this.name, this.x);
-        // console.log('main', this.stage.mainPerson.x);
-        if(this.events.length > 0 && this.stage.collision.checkBump(this)) {
+        if (this.events.length > 0 && this.stage.collision.checkBump(this)) {
             this.clearAll();
-            console.log(this.name);
-            this.stage.isDead = true;
+            this.stage.isAnd = true;
         }
         if (this.events.length > 0 && this.events[0] == 'right') {
             this.animate('walk');

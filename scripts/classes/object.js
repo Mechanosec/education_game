@@ -17,8 +17,7 @@ export default class Object extends PIXI.AnimatedSprite {
         this.height = config.height; //высота модели персонажа
         this.speed = config.speed; //скорость перемещения персонажа
         this.anchor.set(0.5); //привязка координат персонажа к его центру
-        this.x = x + this.width / 2; //установка координаты X, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
-        this.y = y + this.height / 2; //установка координаты Y, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
+        this.setCoordinate(x, y);
         this.firstXpos = this.x;
         this.firstYpos = this.y;
         this.animationSpeed = 0.12; //скорость анимации
@@ -27,11 +26,19 @@ export default class Object extends PIXI.AnimatedSprite {
             this.stage.collision.add(this);
         }
 
-        // if(!config.isMain) {
         this.stage.addChild(this); //добавление нашего персонажа в сцену
-        // }
 
         this.play(); //запуск анимации
+    }
+
+    /**
+     * установка коодинат
+     * @param x
+     * @param y
+     */
+    setCoordinate(x, y) {
+        this.x = x + this.width / 2; //установка координаты X, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
+        this.y = y + this.height / 2; //установка координаты Y, операции при присвоении нужны для того чтобы персонаж перемещался относительно сноего центра
     }
 
     debug() {

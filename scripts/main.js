@@ -1,4 +1,3 @@
-
 import App from "./scene/app.js";
 
 import Level1 from "./scene/levels/level1.js";
@@ -22,16 +21,4 @@ window.onload = () => {
 
     app.start(); //запуск приложения
 
-    //
-    $(function () {
-        function parserCommands(cmd) {
-            eval(cmd);
-        }
-
-        $('#run_game').click(function () {
-
-            let commandsTextarea = $('#game_commands').val();
-            parserCommands(commandsTextarea);
-        });
-    });
 };

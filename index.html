@@ -6,16 +6,16 @@
 </head>
 <body>
 <p>анимация смерти в красном квадрате</p>
-<input type="button" value="RUN" id="run_game">
+<input type="button" value="RUN" id="run_script">
 <textarea cols="50" rows="10" id="game_commands">
     for(let i=0; i<5; i++) {
         hero.right();
     }
 </textarea>
 <div id="game-place"></div>
-<!--<script src="engine/pixi.min.js"></script>-->
+<script src="engine/pixi.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pixi.js-legacy@5.2.1/dist/pixi-legacy.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/pixi.js-legacy@5.2.1/dist/pixi-legacy.min.js"></script>-->
 <script src="scripts/main.js" type="module"></script>
 </body>
 </html>

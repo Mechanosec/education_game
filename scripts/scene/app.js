@@ -13,12 +13,9 @@ export default class App extends PIXI.Application{
     CheckLevel() {
         if(this.stage.isAnd) {
             this.currentLevel += 1;
-            this.stage = this.stages[this.currentLevel];
+            this.stage = new this.stages[this.currentLevel];
         } else if (this.stage.isDead) {
-            let mainPerson = this.stage.mainPerson;
-            console.log(mainPerson);
             this.stage = new this.stages[this.currentLevel]();
-            this.stage.setMainPerson(mainPerson);
         }
     }
 }

@@ -1,19 +1,28 @@
 import Collision from "./collision.js";
+import Hero from "../classes/hero.js";
+import {config as heroConfig} from "../../source/hero.js";
 
 export default class GameLevel extends PIXI.Container {
     constructor() {
         super();
-        this.mainPerson = {};
         this.collision = new Collision();
         this.ticker = new PIXI.Ticker();
         this.ticker.start();
+
         this.isAnd = false;
         this.isDead = false;
+
         this.addChild(this.initGround()); //добавление заднего фона в сцену
+
         this.view = {
             'width': this.width - 1,
             'height': this.height - 1
         };
+
+
+        this.hero = Hero.getInstance(this, heroConfig, 0, 0);
+
+        this.commandHandler();
     }
 
     /**
@@ -37,4 +46,13 @@ export default class GameLevel extends PIXI.Container {
         return rectangle;
     }
 
+    commandHandler() {
+        $(() => {
+            $('#run_script').click(() => {
+                let cmd = $('#game_commands').val();
+                cmd = cmd.replace('hero', 'this.hero');
+                eval(cmd);
+            });
+        });
+    }
 }
