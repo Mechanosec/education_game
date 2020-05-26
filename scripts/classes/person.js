@@ -99,9 +99,9 @@ export default class Person extends Object {
      */
     down() {
         let currentY = this.calcMoveToY();
-        if (currentY < this.stage.view.height - (this.height / 2)) { //проверка на край приложения
+        if (currentY < this.stage.view.height - (this.realHeight)) { //проверка на край приложения
             this.scale.x = 1;
-            this.moveToY.push(currentY + (this.step * this.height / 2));
+            this.moveToY.push(currentY + (this.step * this.realHeight));
             this.events.push('down');
         }
 
@@ -112,9 +112,9 @@ export default class Person extends Object {
      */
     up() {
         let currentY = this.calcMoveToY();
-        if (currentY > (this.height / 2)) { //проверка на край приложения
+        if (currentY > (this.realHeight)) { //проверка на край приложения
             this.scale.x = 1;
-            this.moveToY.push(currentY - (this.step * this.height));
+            this.moveToY.push(currentY - (this.step * this.realHeight));
             this.events.push('up');
         }
 
@@ -135,6 +135,8 @@ export default class Person extends Object {
         this.moveToY = [];
     }
 
+    bumpChecker() {}
+
 
     /**
      * цикл евентов
@@ -142,10 +144,11 @@ export default class Person extends Object {
      * как только евент завершен он удаляется вместе с координатой, и так пока не закончатся евенты
      */
     myLoop() {
-        if (this.events.length > 0 && this.stage.collision.checkBump(this)) {
-            this.clearAll();
-            this.stage.isAnd = true;
-        }
+        this.bumpChecker();
+        // if (this.events.length > 0 && this.stage.collision.checkBump(this)) {
+        //     this.clearAll();
+        //     this.stage.isAnd = true;
+        // }
         if (this.events.length > 0 && this.events[0] == 'right') {
             this.animate('walk');
             this.x += this.speed;

@@ -50,7 +50,8 @@ export default class GameLevel extends PIXI.Container {
         $(() => {
             $('#run_script').click(() => {
                 let cmd = $('#game_commands').val();
-                cmd = cmd.replace('hero', 'this.hero');
+                cmd = cmd.replace(/hero/g, 'this.hero');
+                console.log(cmd);
                 eval(cmd);
             });
         });

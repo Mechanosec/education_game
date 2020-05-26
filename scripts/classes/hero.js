@@ -16,6 +16,15 @@ export default class Hero extends Person {
         this.temp = 1;
     }
 
+    bumpChecker() {
+        if (this.events.length > 0) {
+            if (this.stage.collision.checkBump(this, 'Enemy')) {
+                this.clearAll();
+                this.stage.isAnd = true;
+            }
+        }
+    }
+
     static getInstance(stage, config, x, y) {
         if (Hero._instance) {
             Hero._instance.stage = stage;
